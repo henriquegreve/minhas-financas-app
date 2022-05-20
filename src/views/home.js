@@ -1,9 +1,7 @@
 import React from "react";
 
 import UsuarioService from "../app/service/usuarioService";
-import LocalStorageService from "../app/service/localstorageService";
-
-import axios from "axios";
+import { AuthContext } from "../main/provedorAutenticacao";
 
 class Home extends React.Component{
 
@@ -17,9 +15,10 @@ class Home extends React.Component{
     }
 
     componentDidMount () {
-        const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
+        const usuarioLogado = this.context.usuarioAutenticado
 
-        axios.get(`http://192.168.15.74:8080/api/usuarios/${usuarioLogado.id}/saldo`) 
+        this.usuarioService
+            .obterSaldoPorUsuario(usuarioLogado.id)
             .then( response => {
                 this.setState({ saldo: response.data })
             }).catch( error => {
@@ -38,12 +37,12 @@ class Home extends React.Component{
                 <p className="lead">
                     <a className="btn btn-primary btn-lg" 
                     href="#/cadastro-usuario" 
-                    role="button"><i className="fa fa-users"/> 
-                    Cadastrar Usuário
+                    role="button"><i className="pi pi-users"/> 
+                        Cadastrar Usuário
                     </a>
                     <a className="btn btn-dark btn-lg" 
-                    href="https://bootswatch.com/lux/#" 
-                    role="button"><i className="fa fa-users"/>
+                    href="#/cadastro-lancamentos" 
+                    role="button"><i className="pi pi-money-bill"/>
                     Cadastrar Lançamentos
                     </a>  
                 </p>
@@ -51,5 +50,7 @@ class Home extends React.Component{
         )
     }
 }
+
+Home.contextType = AuthContext;
 
 export default Home

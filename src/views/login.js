@@ -4,8 +4,8 @@ import FormGroup from "../componentes/form-group";
 import { withRouter } from 'react-router-dom'
 
 import UsuarioService from "../app/service/usuarioService";
-import LocalStorageService from "../app/service/localstorageService"
 import { mensagemErro } from '../componentes/toastr'
+import { AuthContext } from "../main/provedorAutenticacao";
 
 class Login extends React.Component {
 
@@ -24,7 +24,7 @@ class Login extends React.Component {
             email: this.state.email,
             senha: this.state.senha
         }).then( response => {
-            LocalStorageService.adicionarItem('_usuario_logado', response.data )
+            this.context.iniciarSessao(response.data)
             this.props.history.push('/home')
         }).catch( erro => {
             mensagemErro(erro.response.data)
@@ -66,8 +66,14 @@ class Login extends React.Component {
                                                     placeholder="Password" />
                                             </FormGroup>
                                             <br/>
-                                            <button onClick={this.entrar} className="btn btn-primary">Entrar</button>
-                                            <button onClick={this.prepareCadastrar} className="btn btn-secondary">Cadastrar</button>
+                                            <button onClick={this.entrar} 
+                                                    className="btn btn-primary">
+                                                        <i className="pi pi-sign-in" />  Entrar
+                                            </button>
+                                            <button onClick={this.prepareCadastrar} 
+                                                    className="btn btn-secondary">
+                                                        <i className="pi pi-plus" />  Cadastrar
+                                            </button>
                                         </fieldset>
                                     </div>
                                 </div>
@@ -79,5 +85,7 @@ class Login extends React.Component {
         )
     }
 }
+
+Login.contextType = AuthContext
 
 export default withRouter(Login)
