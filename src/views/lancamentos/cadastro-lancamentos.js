@@ -56,6 +56,8 @@ class CadastroLancamentos extends React.Component {
             return false;
         }
 
+        console.log(lancamento)
+
         this.service
             .salvar(lancamento)
             .then(response => {

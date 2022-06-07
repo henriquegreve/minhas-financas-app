@@ -1,13 +1,22 @@
 import axios from "axios";
 
-const httpClient = axios.create({
-    baseURL: 'https://greve-minhas-financas-api.herokuapp.com'
+const base = process.env.REACT_APP_API_URL
+
+export const httpClient = axios.create({
+    baseURL: 'http://localhost:8080',
+    withCredentials: true
 })
 
 class ApiService {
 
     constructor(apiUrl) {
         this.apiUrl = apiUrl
+    }
+
+    static registrarToken(token) {
+        if(token) {
+            httpClient.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        }
     }
 
     post(url, objeto) {
