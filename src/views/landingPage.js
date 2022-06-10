@@ -1,10 +1,10 @@
-import React from "react";
-import { withRouter } from "react-router-dom"
+import React from 'react';
+import { withRouter } from 'react-router-dom'
 
 class LandingPage extends React.Component {
 
     goToHomePage = () => {
-        this.props.history.push("/login")
+        this.props.history.push("/home")
     }
 
     render() {
@@ -15,7 +15,9 @@ class LandingPage extends React.Component {
                 Clique no botão abaixo para acessar o sistema: <br/><br/>
 
                 <div className="offset-md-4 col-md-4">
-                    <button style={{width: '100%'}} className="btn btn-primary">
+                    <button style={{ width: '100%' }} 
+                            onClick={this.goToHomePage}
+                            className="btn btn-primary">
                         <i className="pi pi-sign-in"></i> Acessar
                     </button> 
                 </div>

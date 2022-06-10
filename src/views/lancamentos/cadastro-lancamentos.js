@@ -1,4 +1,5 @@
 import React from 'react'
+import currencyFormatter from "currency-formatter";
 
 import Card from '../../componentes/card'
 import FormGroup from '../../componentes/form-group'

@@ -2,6 +2,7 @@ import React from "react";
 
 import AuthService from "../app/service/authService";
 import jwt from "jsonwebtoken";
+import ApiService from "../app/apiService";
 
 export const AuthContext = React.createContext();
 export const AuthConsumer = AuthContext.Consumer;
@@ -23,6 +24,7 @@ class ProvedorAutenticacao extends React.Component {
             nome: claims.nome
         }
 
+        ApiService.registrarToken(token)
         AuthService.logar(usuario, token);
         this.setState( { isAutenticado: true, usuarioAutenticado: usuario } )
     }

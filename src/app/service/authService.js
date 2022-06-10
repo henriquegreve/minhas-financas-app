@@ -9,13 +9,15 @@ export const TOKEN = 'access_token'
 export default class AuthService {
 
     static isUsuarioAutenticado() {
-        const token = LocalStorageService.obterItem(TOKEN)
-        const decodedToken = jwt.decode(token)
-        const expiration = 0
-        expiration = decodedToken.exp
+        //const token = LocalStorageService.obterItem(TOKEN)
+        //const decodedToken = jwt.decode(token)
+        //const expiration = decodedToken.exp
+        //const isTokenExpirado = Date.now() > (expiration * 1000)
 
-        const isTokenInvalido = Date.now() >= (expiration * 1000)
-        return !isTokenInvalido;
+        //return !isTokenExpirado
+
+        const usuario = LocalStorageService.obterItem(USUARIO_LOGADO)
+        return usuario && usuario.id
     }
 
     static removerUsuarioAutenticado() {
